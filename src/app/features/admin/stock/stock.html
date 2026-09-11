@@ -1,0 +1,65 @@
+<div class="admin-crud-container">
+  <div class="crud-header">
+    <h2 class="crud-title">Stock Management</h2>
+    <button class="btn-electro" (click)="openForm()">
+      <i class="fas fa-plus"></i> Add Stock Entry
+    </button>
+  </div>
+
+  <div class="crud-body">
+    <table class="table-electro">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Product Name</th>
+          <th>Quantity</th>
+          <th>Location</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of items; track item.id) {
+          <tr>
+            <td>{{ item.id }}</td>
+            <td>{{ item.product?.name || 'N/A' }}</td>
+            <td>
+              <span class="badge" [class.badge-success]="item.quantity > 10" [class.badge-warning]="item.quantity <= 10" [class.badge-danger]="item.quantity === 0" style="padding: 5px 10px; border-radius: 12px; color: white;" [style.background-color]="item.quantity > 10 ? '#28a745' : (item.quantity > 0 ? '#ffc107' : '#dc3545')">
+                {{ item.quantity }}
+              </span>
+            </td>
+            <td>{{ item.location }}</td>
+            <td>
+              <button class="btn-icon text-primary" title="Edit" (click)="openForm(item)"><i class="fas fa-edit"></i></button>
+              <button class="btn-icon text-danger" title="Delete" (click)="deleteItem(item.id)"><i class="fas fa-trash"></i></button>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="5" class="text-center py-4">No stock entries found.</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<app-popup
+  [open]="isPopupOpen"
+  [config]="popupConfig"
+  (closed)="isPopupOpen = false"
+  (confirmed)="saveItem()"
+  (cancelled)="isPopupOpen = false">
+  
+  <div class="form-group mb-3">
+    <label for="productName">Product Name</label>
+    <input type="text" id="productName" class="form-control" placeholder="Product name" [(ngModel)]="editingItem.productName">
+  </div>
+  <div class="form-group mb-3">
+    <label for="quantity">Quantity</label>
+    <input type="number" id="quantity" class="form-control" placeholder="Quantity" [(ngModel)]="editingItem.quantity">
+  </div>
+  <div class="form-group mb-3">
+    <label for="location">Location</label>
+    <input type="text" id="location" class="form-control" placeholder="Warehouse/Store location" [(ngModel)]="editingItem.location">
+  </div>
+</app-popup>

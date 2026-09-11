@@ -1,0 +1,46 @@
+<header class="main-header">
+  <div class="main-header__container">
+    <div class="logo">
+      <a routerLink="/admin" id="logo-link">
+        Electro<span class="logo__dot">.</span> <span class="admin-badge">Admin</span>
+      </a>
+    </div>
+    <div class="header-actions">
+      <a routerLink="/" class="header-actions__btn" title="Back to Public Site" style="text-decoration: none;">
+        <i class="fas fa-home"></i>
+        <span class="header-actions__label">Public Site</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<nav class="nav-menu">
+  <div class="nav-menu__container">
+    <ul class="nav-menu__list">
+      <li class="nav-menu__item" routerLinkActive="nav-menu__item--active" [routerLinkActiveOptions]="{exact: true}">
+        <a routerLink="/admin" class="nav-menu__link">Dashboard</a>
+      </li>
+      <li class="nav-menu__item" routerLinkActive="nav-menu__item--active">
+        <a routerLink="/admin/products" class="nav-menu__link">Products</a>
+      </li>
+      <li class="nav-menu__item" routerLinkActive="nav-menu__item--active">
+        <a routerLink="/admin/categories" class="nav-menu__link">Categories</a>
+      </li>
+      <li class="nav-menu__item" routerLinkActive="nav-menu__item--active">
+        <a routerLink="/admin/stock" class="nav-menu__link">Stock</a>
+      </li>
+      <li class="nav-menu__item" routerLinkActive="nav-menu__item--active">
+        <a routerLink="/admin/users" class="nav-menu__link">Users</a>
+      </li>
+      <li class="nav-menu__item" routerLinkActive="nav-menu__item--active">
+        <a routerLink="/admin/roles" class="nav-menu__link">Roles</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<main class="admin-content">
+  <div class="container mt-4">
+    <router-outlet></router-outlet>
+  </div>
+</main>

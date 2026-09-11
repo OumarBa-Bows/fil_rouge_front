@@ -1,0 +1,57 @@
+<div class="product-card" [id]="'product-' + product.id">
+
+  <!-- Image Area -->
+  <div class="product-card__image-wrap">
+
+    <!-- Badge -->
+    @if (product.badge) {
+      <span class="product-card__badge" [ngClass]="badgeClass">
+        {{ product.badge }}
+      </span>
+    }
+
+    <img
+      [src]="'http://localhost:8080/api/products/' + product.id + '/image'"
+      [alt]="product.name"
+      class="product-card__image"
+      loading="lazy"
+      (error)="$any($event.target).src='https://placehold.co/300x300?text=No+Image'"
+    >
+
+    <!-- Hover Action Buttons -->
+    <div class="product-card__actions">
+      <button class="product-card__action-btn" title="Ajouter aux souhaits" [id]="'wishlist-' + product.id">
+        <i class="fas fa-heart"></i>
+      </button>
+      <button class="product-card__action-btn" title="Comparer" [id]="'compare-' + product.id">
+        <i class="fas fa-exchange-alt"></i>
+      </button>
+      <button class="product-card__action-btn product-card__action-btn--cart" title="Ajouter au panier" [id]="'cart-' + product.id">
+        <i class="fas fa-shopping-cart"></i>
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Card Info -->
+  <div class="product-card__info">
+    <p class="product-card__category">{{ product.category?.name }}</p>
+    <h3 class="product-card__name">{{ product.name }}</h3>
+
+    <!-- Price -->
+    <div class="product-card__pricing">
+      <span class="product-card__price">{{ product.price | currency:'XOF':'symbol':'1.0-0' }}</span>
+      @if (product.oldPrice) {
+        <span class="product-card__old-price">{{ product.oldPrice | currency:'XOF':'symbol':'1.0-0' }}</span>
+      }
+    </div>
+
+    <!-- Rating Stars -->
+    <div class="product-card__rating">
+      @for (star of stars; track star) {
+        <i class="fas fa-star" [ngClass]="star <= (product.rating ?? 0) ? 'star--filled' : 'star--empty'"></i>
+      }
+    </div>
+  </div>
+
+</div>

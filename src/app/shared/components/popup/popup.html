@@ -1,0 +1,103 @@
+@if (isOpen || isLeaving) {
+  <!-- ─── Backdrop ──────────────────────────────────────────────────────── -->
+  <div
+    class="popup-backdrop"
+    [class.popup-backdrop--leaving]="isLeaving"
+    (click)="onBackdropClick($event)"
+    role="dialog"
+    aria-modal="true"
+    [attr.aria-labelledby]="cfg().title ? 'popup-title' : null"
+  >
+    <!-- ─── Card ─────────────────────────────────────────────────────────── -->
+    <div
+      class="popup-card"
+      [class]="sizeClass()"
+      [class.popup-card--leaving]="isLeaving"
+    >
+      <!-- Accent strip -->
+      <div class="popup-accent" [ngClass]="'popup-accent--' + cfg().variant"></div>
+
+      <!-- ─── Header ────────────────────────────────────────────────────── -->
+      <div class="popup-header">
+        <!-- Icon + Title -->
+        <div class="popup-header__left">
+          <span class="popup-icon" [ngClass]="'popup-icon--' + cfg().variant">
+            @switch (cfg().variant) {
+              @case ('danger')  { <i class="pi pi-exclamation-triangle"></i> }
+              @case ('warning') { <i class="pi pi-exclamation-circle"></i>   }
+              @case ('success') { <i class="pi pi-check-circle"></i>         }
+              @case ('info')    { <i class="pi pi-info-circle"></i>          }
+              @default          { <i class="pi pi-window-maximize"></i>      }
+            }
+          </span>
+
+          @if (cfg().title) {
+            <h5 id="popup-title" class="popup-title">{{ cfg().title }}</h5>
+          }
+        </div>
+
+        <!-- Close button -->
+        @if (cfg().showCloseButton) {
+          <button
+            id="popup-close-btn"
+            type="button"
+            class="popup-close"
+            aria-label="Close popup"
+            (click)="cancel()"
+          >
+            <i class="pi pi-times"></i>
+          </button>
+        }
+      </div>
+
+      <!-- ─── Body ──────────────────────────────────────────────────────── -->
+      <div class="popup-body">
+        @if (bodyTpl) {
+          <ng-container [ngTemplateOutlet]="bodyTpl" />
+        } @else if (cfg().message) {
+          <p class="popup-message">{{ cfg().message }}</p>
+        }
+      </div>
+
+      <!-- ─── Footer ────────────────────────────────────────────────────── -->
+      @if (cfg().showFooter) {
+        <div class="popup-footer">
+          @if (footerTpl) {
+            <ng-container [ngTemplateOutlet]="footerTpl" />
+          } @else {
+            @if (cfg().showCancelButton) {
+              <button
+                id="popup-cancel-btn"
+                type="button"
+                class="popup-btn popup-btn--cancel"
+                (click)="cancel()"
+              >
+                {{ cfg().cancelLabel }}
+              </button>
+            }
+
+            @if (cfg().showConfirmButton) {
+              <button
+                id="popup-confirm-btn"
+                type="button"
+                class="popup-btn popup-btn--confirm"
+                [ngClass]="'popup-btn--' + cfg().variant"
+                [disabled]="cfg().loading"
+                (click)="confirm()"
+              >
+                @if (cfg().loading) {
+                  <span
+                    class="spinner-border spinner-border-sm me-2"
+                    role="status"
+                    aria-hidden="true"
+                  ></span>
+                }
+                {{ cfg().confirmLabel }}
+              </button>
+            }
+          }
+        </div>
+      }
+    </div>
+  </div>
+}

@@ -1,0 +1,94 @@
+<!-- Top Info Bar -->
+<div class="top-bar">
+  <div class="top-bar__container">
+    <div class="top-bar__contacts">
+      <span><i class="fas fa-phone"></i> +222 34 52 37 25</span>
+      <span><i class="fas fa-envelope"></i> Bows4844&#64;gmail.com</span>
+      <span><i class="fas fa-map-marker-alt"></i> BMD, Marché Mattel, Nouakchott</span>
+    </div>
+    <div class="top-bar__right">
+      <a href="#" class="top-bar__link"><i class="fas fa-dollar-sign"></i> USD</a>
+      <a href="#" class="top-bar__link" (click)="openLogin()"><i class="fas fa-user"></i> Mon Compte</a>
+    </div>
+  </div>
+</div>
+
+<!-- Main Header -->
+<header class="main-header">
+  <div class="main-header__container">
+
+    <!-- Logo -->
+    <div class="logo">
+      <a href="/" id="logo-link">
+        Electro<span class="logo__dot">.</span>
+      </a>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="search-bar">
+      <div class="search-bar__inner">
+        <select class="search-bar__select" id="search-category">
+          <option>Toutes catégories</option>
+          <option>Ordinateurs</option>
+          <option>Smartphones</option>
+          <option>Appareils photo</option>
+          <option>Accessoires</option>
+        </select>
+        <div class="search-bar__divider"></div>
+        <input
+          id="search-input"
+          class="search-bar__input"
+          type="text"
+          placeholder="Rechercher un produit..."
+        >
+        <button class="search-bar__btn" id="search-btn">
+          <i class="fas fa-search"></i> Rechercher
+        </button>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="header-actions">
+      <button class="header-actions__btn" id="wishlist-btn" title="Ma liste de souhaits">
+        <i class="fas fa-heart"></i>
+        <span class="header-actions__badge">0</span>
+        <span class="header-actions__label">Souhaits</span>
+      </button>
+      <button class="header-actions__btn header-actions__btn--cart" id="cart-btn" title="Mon panier">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="header-actions__badge header-actions__badge--cart">3</span>
+        <span class="header-actions__label">Panier</span>
+      </button>
+    </div>
+
+  </div>
+</header>
+
+<!-- Navigation Menu -->
+<nav class="nav-menu">
+  <div class="nav-menu__container">
+    <ul class="nav-menu__list">
+      <li class="nav-menu__item nav-menu__item--active">
+        <a href="/" class="nav-menu__link" id="nav-home">Accueil</a>
+      </li>
+      <li class="nav-menu__item">
+        <a href="#" class="nav-menu__link" id="nav-deals">Bons Plans</a>
+      </li>
+      <li class="nav-menu__item">
+        <a href="#" class="nav-menu__link" id="nav-categories">Catégories</a>
+      </li>
+      <li class="nav-menu__item">
+        <a href="#" class="nav-menu__link" id="nav-laptops">Ordinateurs</a>
+      </li>
+      <li class="nav-menu__item">
+        <a href="#" class="nav-menu__link" id="nav-smartphones">Smartphones</a>
+      </li>
+      <li class="nav-menu__item">
+        <a href="#" class="nav-menu__link" id="nav-cameras">Appareils photo</a>
+      </li>
+      <li class="nav-menu__item">
+        <a href="#" class="nav-menu__link" id="nav-accessories">Accessoires</a>
+      </li>
+    </ul>
+  </div>
+</nav>

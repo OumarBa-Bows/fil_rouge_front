@@ -1,0 +1,33 @@
+<!-- New Products Section -->
+<section class="products-section">
+  <div class="products-section__container">
+
+    <!-- Section Header -->
+    <div class="products-section__header">
+      <h2 class="products-section__title">NOUVEAUX PRODUITS</h2>
+
+      <!-- Category Tabs -->
+      <div class="products-tabs" role="tablist">
+        @for (tab of tabs; track tab) {
+          <button
+            class="products-tabs__btn"
+            [class.products-tabs__btn--active]="activeTab === tab"
+            (click)="setTab(tab)"
+            [id]="'tab-' + tab.replace(' ', '-').toLowerCase()"
+            role="tab"
+          >
+            {{ tab }}
+          </button>
+        }
+      </div>
+    </div>
+
+    <!-- Product Grid -->
+    <div class="products-grid">
+      @for (product of filteredProducts; track product.id) {
+        <app-product-card [product]="product" />
+      }
+    </div>
+
+  </div>
+</section>
