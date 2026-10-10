@@ -1,0 +1,18 @@
+on:
+  push:
+    branches: [main]
+    paths:
+      - "fil_rouge_front/**"
+      - ".github/workflows/fil_rouge_front.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "fil_rouge_front/**"
+      - ".github/workflows/fil_rouge_backend.yml"
+  workflow_dispatch:
+
+jobs:
+  placeholder:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Pipeline front end déclenché"
