@@ -1,17 +1,22 @@
-name: Node.js CI
+name: Angular CI/CD
 
 on:
   push:
-    branches: ["main"]
+    branches:
+      - main
+      - 'feature/**'
+    tags:
+      - 'v*'
   pull_request:
-    branches: ["main"]
+    branches:
+      - main
 
 permissions:
   contents: read
 
 jobs:
   build:
-    name: Build, Test and Push Docker Image
+    name: Build and Test Angular
     runs-on: ubuntu-latest
 
     steps:
@@ -41,31 +46,38 @@ jobs:
 
       # 6. Configurer Docker Buildx
       - name: Set up Docker Buildx
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v'))
         uses: docker/setup-buildx-action@v3
 
       # 7. Connexion à Docker Hub
       - name: Login to Docker Hub
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v'))
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      # 8. Build et push avec cache Docker
-      - name: Build and push Docker image
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      # 8. Définir les tags Docker
+      - name: Docker metadata
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v'))
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ secrets.DOCKERHUB_USERNAME }}/fil-rouge-frontend
+          tags: |
+            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
+            type=ref,event=tag
+            type=sha
+
+      # 9. Build et Push Docker
+      - name: Build and Push Docker Image
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v'))
         uses: docker/build-push-action@v6
         with:
           context: .
+          file: ./Dockerfile
           push: true
-
-          tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/fil-rouge-frontend:latest
-            ${{ secrets.DOCKERHUB_USERNAME }}/fil-rouge-frontend:${{ github.sha }}
-
-          # Restaurer le cache Docker
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
-
-          # Enregistrer le cache pour les prochains builds
           cache-to: type=gha,mode=max
