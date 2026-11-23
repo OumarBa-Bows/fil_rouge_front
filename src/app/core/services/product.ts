@@ -4,13 +4,13 @@ import { Product } from '../../model/product';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import {PageResponse} from '../../model/pageResponse';
+import {environement} from '../../environement/environement';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductService {
-  private api =
-    'http://localhost:8080/api/products';
+  private api = `${environement.baseUrl}api/products`;
 
   constructor(
     private http: HttpClient

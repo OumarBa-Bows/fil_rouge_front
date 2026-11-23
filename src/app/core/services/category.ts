@@ -4,12 +4,13 @@ import { Observable } from 'rxjs';
 import { Category } from '../../model/category';
 import { CategoryDTO } from '../../dto/category.dto';
 import { PageResponse } from '../../model/pageResponse';
+import {environement} from '../../environement/environement';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CategoryService {
-  private api = 'http://localhost:8080/api/categories';
+  private api = `${environement.baseUrl}api/categories`;
 
   constructor(private http: HttpClient) {}
 

@@ -3,12 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Role } from '../../model/role';
 import { PageResponse } from '../../model/pageResponse';
+import {environement} from '../../environement/environement';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RoleService {
-  private api = 'http://localhost:8080/api/roles';
+  private api = `${environement.baseUrl}api/roles`;
 
   constructor(private http: HttpClient) {}
 

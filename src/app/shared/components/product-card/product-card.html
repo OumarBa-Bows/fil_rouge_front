@@ -11,7 +11,7 @@
     }
 
     <img
-      [src]="'http://localhost:8080/api/products/' + product.id + '/image'"
+      [src]="environement.baseUrl + 'api/products/' + product.id + '/image'"
       [alt]="product.name"
       class="product-card__image"
       loading="lazy"
