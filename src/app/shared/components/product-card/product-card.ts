@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Product } from '../../../model/product';
 import { CurrencyPipe, NgClass } from '@angular/common';
+import {environement} from '../../../environement/environement';
 
 @Component({
   selector: 'app-product-card',
@@ -32,4 +33,6 @@ export class ProductCard {
     if (this.product.badge === 'HOT') return 'badge--hot';
     return 'badge--discount';
   }
+
+  protected readonly environement = environement;
 }
